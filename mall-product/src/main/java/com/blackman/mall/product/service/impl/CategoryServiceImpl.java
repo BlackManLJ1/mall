@@ -53,6 +53,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     public void removeMenusByIds(Long[] catIds) {
         //TODO 需判断在那些情况下不能进行删除
 
+        // 逻辑删除的sql：update pms_category set show_status = 0 where cat_id in () and show_status = 1;
         baseMapper.deleteBatchIds(Arrays.asList(catIds));
     }
 
