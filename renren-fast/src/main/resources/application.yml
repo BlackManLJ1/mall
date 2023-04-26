@@ -15,6 +15,12 @@ spring:
   profiles:
     active: dev
   # jackson时间格式化
+  application:
+    name: renren-fast
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 121.41.53.32:8848
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
