@@ -19,3 +19,13 @@ buildNumber.properties
 .idea
 
 **/.gitignore
+
+mall.iml
+**/mall-common.iml
+**/mall-coupon.iml
+**/mall-gateway.iml
+**/mall-ware.iml
+**/mall-order.iml
+**/mall-product.iml
+**/renren-fast.iml
+**/mall-member.iml
