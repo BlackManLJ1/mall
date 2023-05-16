@@ -1,1 +1,1 @@
-INSERT INTO `renren-fast`.`sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES (32, 31, '分类维护', 'product/category', '', 1, 'menu', 0);
+INSERT INTO `renren_fast`.`sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES (32, 31, '分类维护', 'product/category', '', 1, 'menu', 0);
