@@ -17,4 +17,8 @@
     </resultMap>
 
 
+    <select id="selectCountByParentCid" parameterType="long" resultType="long">
+        select count(*) from pms_category where parent_cid = #{parentCid}
+    </select>
+
 </mapper>

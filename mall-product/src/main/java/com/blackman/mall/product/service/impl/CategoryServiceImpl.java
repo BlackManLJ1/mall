@@ -1,5 +1,6 @@
 package com.blackman.mall.product.service.impl;
 
+import com.blackman.mall.product.exception.BaseException;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -50,11 +51,32 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     }
 
     @Override
-    public void removeMenusByIds(Long[] catIds) {
-        //TODO 需判断在那些情况下不能进行删除
+    public void removeMenusById(Integer[] ids) {
+        //1.首先明确不是真的从数据中删除 只是逻辑删除 修改数据库中的状态 要明确mybatisplus的逻辑删除
+        //sql: update pms_category set show_status = 0 where id= ? and show_status = 1;
+        // 2.明确什么情况下能够删除 什么情况下不能够删除
 
-        // 逻辑删除的sql：update pms_category set show_status = 0 where cat_id in () and show_status = 1;
-        baseMapper.deleteBatchIds(Arrays.asList(catIds));
+        // 能够删除代码
+        baseMapper.deleteBatchIds(Arrays.asList(ids));
+
+        //批量删除
+        for (int i = 0; i < ids.length; i++) {
+            CategoryEntity categoryEntity = baseMapper.selectById(ids[i]);
+            Integer catLevel = categoryEntity.getCatLevel();
+            // 如果分类的层级为3直接删除
+            if (catLevel.intValue() == 3) {
+                baseMapper.deleteById(categoryEntity.getCatId());
+            } else {
+                Long count = baseMapper.selectCountByParentCid(categoryEntity.getCatId());
+                if (count.longValue() == 0) {
+                    baseMapper.deleteById(categoryEntity.getCatId());
+                } else {
+                    throw new BaseException("非法删除");
+                }
+            }
+
+        }
+
     }
 
     /**
