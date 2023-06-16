@@ -1,5 +1,6 @@
 package com.blackman.mall.product.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.blackman.mall.product.exception.BaseException;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +52,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     }
 
     @Override
-    public void removeMenusById(Integer[] ids) {
+    public void removeMenusById(Long[] ids) {
         //1.首先明确不是真的从数据中删除 只是逻辑删除 修改数据库中的状态 要明确mybatisplus的逻辑删除
         //sql: update pms_category set show_status = 0 where id= ? and show_status = 1;
         // 2.明确什么情况下能够删除 什么情况下不能够删除

@@ -80,9 +80,15 @@ public class CategoryController {
     }
 
     @DeleteMapping("/delete")
-    public R delete(@RequestParam("ids[]") Integer[] ids) {
+    public R delete(@RequestBody Long[] ids) {
         categoryService.removeMenusById(ids);
 
+        return R.ok();
+    }
+
+    @RequestMapping("/update/sort")
+    public R update(@RequestBody CategoryEntity[] category) {
+        categoryService.updateBatchById(Arrays.asList(category));
         return R.ok();
     }
 

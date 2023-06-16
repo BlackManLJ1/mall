@@ -20,6 +20,6 @@ public interface CategoryService extends IService<CategoryEntity> {
 
     List<CategoryEntity> queryCategoryTree();
 
-    void removeMenusById(Integer[] ids);
+    void removeMenusById(Long[] ids);
 }
 
