@@ -1,1 +1,3 @@
+INSERT INTO `renren_fast`.`sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES (31, 0, '商品系统', '', '', 0, 'editor', 0);
 INSERT INTO `renren_fast`.`sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES (32, 31, '分类维护', 'product/category', '', 1, 'menu', 0);
+INSERT INTO `renren_fast`.`sys_menu` (`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES (33, 31, '品牌管理', 'product/brand', '', 1, 'editor', 0);
