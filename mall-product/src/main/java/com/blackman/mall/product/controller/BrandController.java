@@ -1,10 +1,12 @@
 package com.blackman.mall.product.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import com.blackman.mall.product.service.BrandService;
 import com.blackman.common.utils.PageUtils;
 import com.blackman.common.utils.R;
 
+import javax.validation.Valid;
 
 
 /**
@@ -59,8 +62,21 @@ public class BrandController {
      */
     @RequestMapping("/save")
     @RequiresPermissions("product:brand:save")
-    public R save(@RequestBody BrandEntity brand){
-		brandService.save(brand);
+    public R save(@Valid @RequestBody BrandEntity brand, BindingResult result){
+        if (result.hasErrors()) {
+            Map<String, String> map = new HashMap<>();
+            // 1.获取错误的校验结果
+            result.getFieldErrors().forEach(item -> {
+                // 获取发生错误时的message
+                String message = item.getDefaultMessage();
+                // 获取发生错误的字段
+                String field = item.getField();
+                map.put(field, message);
+            });
+            return R.error(400, "提交的数据不合法").put("data", map);
+        } else {
+            brandService.save(brand);
+        }
 
         return R.ok();
     }
