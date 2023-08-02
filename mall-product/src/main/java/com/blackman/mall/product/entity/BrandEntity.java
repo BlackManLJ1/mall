@@ -4,6 +4,11 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
+
+import com.blackman.common.validator.ListValue;
+import com.blackman.common.validator.group.AddGroup;
+import com.blackman.common.validator.group.UpdateGroup;
+import com.blackman.common.validator.group.UpdateStatusGroup;
 import lombok.Data;
 import org.hibernate.validator.constraints.URL;
 
@@ -24,6 +29,8 @@ public class BrandEntity implements Serializable {
 	/**
 	 * 品牌id
 	 */
+	@Null(message = "品牌id必须为空", groups = AddGroup.class)
+	@NotNull(message = "品牌id不能为空", groups = UpdateGroup.class)
 	@TableId
 	private Long brandId;
 	/**
@@ -44,11 +51,12 @@ public class BrandEntity implements Serializable {
 	/**
 	 * 显示状态[0-不显示；1-显示]
 	 */
+	@ListValue(values = {0, 1}, groups = UpdateStatusGroup.class)
 	private Integer showStatus;
 	/**
 	 * 检索首字母
 	 */
-	@Pattern(regexp = "/^[a-zA-Z]$/", message = "检索首字母不正确")
+	@Pattern(regexp = "^[a-zA-Z]$", message = "检索首字母不正确")
 	private String firstLetter;
 	/**
 	 * 排序
